@@ -13,25 +13,27 @@ notesController.getNoteById = async (req, res) => {
 };
 
 notesController.createNote = async (req, res) => {
-  const { title, content, author } = req.body;
+  const { title, content, author, date } = req.body;
   const newNote = new Note({
     title: title,
     content: content,
     author: author,
+    date: date
   });
   await newNote.save();
 
-  res.json({ message: "Note saved" });
+  res.json(newNote);
 };
 
 notesController.updateNote = async (req, res) => {
-  const { title, content, author } = req.body;
+  const { title, content, author, date } = req.body;
   await Note.findOneAndUpdate(
     { _id: req.params.id },
     {
       title,
       content,
       author,
+      date
     }
   );
 
